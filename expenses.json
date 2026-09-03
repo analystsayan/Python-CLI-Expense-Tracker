@@ -1,0 +1,14 @@
+[
+    {
+        "amount": 500.0,
+        "category": "travel",
+        "note": "bike fuel",
+        "date": "2026-09-02"
+    },
+    {
+        "amount": 152.0,
+        "category": "grocery",
+        "note": "rice",
+        "date": "2026-09-03"
+    }
+]
