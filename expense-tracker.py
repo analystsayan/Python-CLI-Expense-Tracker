@@ -1,4 +1,5 @@
 from datetime import datetime
+from collections import defaultdict
 import json
 import os
 
@@ -75,6 +76,46 @@ class ExpenseTracker:
             return removed
         return None
 
+# ---------- Reporting methods ----------
+
+    def total_spent(self):
+        """Sum of all expense amounts."""
+        return sum(exp.amount for exp in self.expenses)
+
+    def spend_by_category(self):
+        """Returns a dict like {'Food': 450.0, 'Travel': 200.0}."""
+        totals = defaultdict(float)
+        for exp in self.expenses:
+            totals[exp.category] += exp.amount
+        return dict(totals)
+
+    def highest_expense(self):
+        """Returns the single largest Expense object, or None if empty."""
+        if not self.expenses:
+            return None
+        return max(self.expenses, key=lambda exp: exp.amount)
+
+    def filter_by_date_range(self, start_date, end_date):
+        """Returns expenses where start_date <= date <= end_date (format: YYYY-MM-DD)."""
+        return [exp for exp in self.expenses if start_date <= exp.date <= end_date]
+
+    def generate_report(self):
+        """Prints a full summary report."""
+        if not self.expenses:
+            print("No expenses to report.\n")
+            return
+        
+        print("\n=== Expense Report ===")
+        print(f"Total spent: ₹{self.total_spent():.2f}")
+        
+        print("\nSpend by category:")
+        for category, amount in sorted(self.spend_by_category().items(), key=lambda x: -x[1]):
+            print(f"  {category}: ₹{amount:.2f}")
+        
+        top = self.highest_expense()
+        print(f"\nHighest single expense: {top}")
+        print()
+
 
 def get_valid_amount():
     while True:
@@ -92,7 +133,9 @@ def main():
         print("1. Add Expense")
         print("2. View Expenses")
         print("3. Delete Expense")
-        print("4. Exit")
+        print("4. Generate Report")
+        print("5. Filter by Date Range")
+        print("6. Exit")
         
         choice = input("Enter your choice: ")
         
@@ -112,19 +155,30 @@ def main():
                 try:
                     index = int(input("Enter the number of the expense to delete: "))
                     removed = tracker.delete_expense(index)
-                    if removed:
-                        print(f"Deleted: {removed}\n")
-                    else:
-                        print("Invalid expense number.\n")
+                    print(f"Deleted: {removed}\n" if removed else "Invalid expense number.\n")
                 except ValueError:
                     print("Please enter a valid number.\n")
         
         elif choice == "4":
+            tracker.generate_report()
+        
+        elif choice == "5":
+            start = input("Start date (YYYY-MM-DD): ")
+            end = input("End date (YYYY-MM-DD): ")
+            results = tracker.filter_by_date_range(start, end)
+            if results:
+                print(f"\n--- Expenses from {start} to {end} ---")
+                for exp in results:
+                    print(exp)
+                print()
+            else:
+                print("No expenses found in that range.\n")
+                
+        elif choice == "6":
             print("Goodbye!")
             break
-        
+                
         else:
             print("Invalid choice, try again.\n")
-
 
 main()
