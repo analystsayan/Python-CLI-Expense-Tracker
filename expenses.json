@@ -1,14 +1,302 @@
 [
     {
-        "amount": 500.0,
+        "amount": 120.0,
+        "category": "food",
+        "note": "breakfast coffee and pastry",
+        "date": "2026-09-01"
+    },
+    {
+        "amount": 450.0,
+        "category": "food",
+        "note": "lunch with team",
+        "date": "2026-09-01"
+    },
+    {
+        "amount": 2200.0,
+        "category": "groceries",
+        "note": "weekly supermarket restock",
+        "date": "2026-09-01"
+    },
+    {
+        "amount": 150.0,
         "category": "travel",
-        "note": "bike fuel",
+        "note": "metro pass recharge",
         "date": "2026-09-02"
     },
     {
-        "amount": 500.0,
+        "amount": 350.0,
+        "category": "entertainment",
+        "note": "movie ticket",
+        "date": "2026-09-02"
+    },
+    {
+        "amount": 1200.0,
+        "category": "shopping",
+        "note": "new running shoes",
+        "date": "2026-09-02"
+    },
+    {
+        "amount": 85.0,
         "category": "food",
-        "note": "burger",
+        "note": "evening snacks",
+        "date": "2026-09-02"
+    },
+    {
+        "amount": 600.0,
+        "category": "bills",
+        "note": "monthly internet subscription",
+        "date": "2026-09-03"
+    },
+    {
+        "amount": 250.0,
+        "category": "travel",
+        "note": "auto rickshaw fare",
+        "date": "2026-09-03"
+    },
+    {
+        "amount": 890.0,
+        "category": "food",
+        "note": "dinner takeout",
+        "date": "2026-09-03"
+    },
+    {
+        "amount": 450.0,
+        "category": "medical",
+        "note": "pharmacy prescription",
+        "date": "2026-09-03"
+    },
+    {
+        "amount": 1500.0,
+        "category": "utilities",
+        "note": "electricity bill",
         "date": "2026-09-04"
+    },
+    {
+        "amount": 300.0,
+        "category": "groceries",
+        "note": "fresh fruits and milk",
+        "date": "2026-09-04"
+    },
+    {
+        "amount": 75.0,
+        "category": "food",
+        "note": "tea and biscuits",
+        "date": "2026-09-04"
+    },
+    {
+        "amount": 1100.0,
+        "category": "shopping",
+        "note": "casual shirt",
+        "date": "2026-09-04"
+    },
+    {
+        "amount": 400.0,
+        "category": "travel",
+        "note": "cab fare to office",
+        "date": "2026-09-05"
+    },
+    {
+        "amount": 650.0,
+        "category": "food",
+        "note": "weekend brunch",
+        "date": "2026-09-05"
+    },
+    {
+        "amount": 199.0,
+        "category": "entertainment",
+        "note": "streaming service renewal",
+        "date": "2026-09-05"
+    },
+    {
+        "amount": 320.0,
+        "category": "groceries",
+        "note": "bakery essentials",
+        "date": "2026-09-05"
+    },
+    {
+        "amount": 1800.0,
+        "category": "personal care",
+        "note": "haircut and spa session",
+        "date": "2026-09-06"
+    },
+    {
+        "amount": 550.0,
+        "category": "food",
+        "note": "pizza delivery",
+        "date": "2026-09-06"
+    },
+    {
+        "amount": 210.0,
+        "category": "travel",
+        "note": "parking fees",
+        "date": "2026-09-06"
+    },
+    {
+        "amount": 1400.0,
+        "category": "home",
+        "note": "kitchen utensils upgrade",
+        "date": "2026-09-06"
+    },
+    {
+        "amount": 90.0,
+        "category": "food",
+        "note": "morning juice",
+        "date": "2026-09-07"
+    },
+    {
+        "amount": 3100.0,
+        "category": "groceries",
+        "note": "monthly pantry staples",
+        "date": "2026-09-07"
+    },
+    {
+        "amount": 480.0,
+        "category": "travel",
+        "note": "cab ride home",
+        "date": "2026-09-07"
+    },
+    {
+        "amount": 250.0,
+        "category": "education",
+        "note": "notebooks and stationery",
+        "date": "2026-09-07"
+    },
+    {
+        "amount": 750.0,
+        "category": "food",
+        "note": "dinner with friends",
+        "date": "2026-09-08"
+    },
+    {
+        "amount": 600.0,
+        "category": "travel",
+        "note": "bike fuel",
+        "date": "2026-09-08"
+    },
+    {
+        "amount": 350.0,
+        "category": "bills",
+        "note": "mobile prepaid recharge",
+        "date": "2026-09-08"
+    },
+    {
+        "amount": 1250.0,
+        "category": "health",
+        "note": "gym monthly membership",
+        "date": "2026-09-08"
+    },
+    {
+        "amount": 180.0,
+        "category": "food",
+        "note": "afternoon cold brew",
+        "date": "2026-09-09"
+    },
+    {
+        "amount": 950.0,
+        "category": "shopping",
+        "note": "wireless earbuds case",
+        "date": "2026-09-09"
+    },
+    {
+        "amount": 420.0,
+        "category": "groceries",
+        "note": "vegetables and eggs",
+        "date": "2026-09-09"
+    },
+    {
+        "amount": 1500.0,
+        "category": "services",
+        "note": "home deep cleaning deposit",
+        "date": "2026-09-09"
+    },
+    {
+        "amount": 280.0,
+        "category": "travel",
+        "note": "toll taxes",
+        "date": "2026-09-10"
+    },
+    {
+        "amount": 520.0,
+        "category": "food",
+        "note": "sushi lunch",
+        "date": "2026-09-10"
+    },
+    {
+        "amount": 800.0,
+        "category": "medical",
+        "note": "dentist consultation",
+        "date": "2026-09-10"
+    },
+    {
+        "amount": 230.0,
+        "category": "entertainment",
+        "note": "comic book purchase",
+        "date": "2026-09-10"
+    },
+    {
+        "amount": 1600.0,
+        "category": "travel",
+        "note": "outstation bus ticket",
+        "date": "2026-09-11"
+    },
+    {
+        "amount": 340.0,
+        "category": "food",
+        "note": "highway diner meal",
+        "date": "2026-09-11"
+    },
+    {
+        "amount": 110.0,
+        "category": "groceries",
+        "note": "bottled water pack",
+        "date": "2026-09-11"
+    },
+    {
+        "amount": 2400.0,
+        "category": "travel",
+        "note": "hotel booking deposit",
+        "date": "2026-09-11"
+    },
+    {
+        "amount": 620.0,
+        "category": "food",
+        "note": "resort breakfast buffet",
+        "date": "2026-09-12"
+    },
+    {
+        "amount": 450.0,
+        "category": "entertainment",
+        "note": "museum entry fees",
+        "date": "2026-09-12"
+    },
+    {
+        "amount": 880.0,
+        "category": "shopping",
+        "note": "souvenirs and gifts",
+        "date": "2026-09-12"
+    },
+    {
+        "amount": 1350.0,
+        "category": "food",
+        "note": "seafood dinner",
+        "date": "2026-09-12"
+    },
+    {
+        "amount": 900.0,
+        "category": "travel",
+        "note": "rental car fuel",
+        "date": "2026-09-13"
+    },
+    {
+        "amount": 290.0,
+        "category": "food",
+        "note": "airport snack",
+        "date": "2026-09-13"
+    },
+    {
+        "amount": 500.0,
+        "category": "travel",
+        "note": "airport taxi to home",
+        "date": "2026-09-13"
     }
 ]

@@ -2,6 +2,7 @@ from datetime import datetime
 from collections import defaultdict
 import json
 import os
+import matplotlib.pyplot as plt
 
 class Expense:
     """Represents a single expense record."""
@@ -33,10 +34,13 @@ class Expense:
 class ExpenseTracker:
     """Manages the full collection of expenses: add, view, delete, save, load."""
     
-    def __init__(self, filename="expenses.json"):
+    def __init__(self, filename="expenses.json", budget_filename="budgets.json"):
         self.filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+        self.budget_filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), budget_filename)
         self.expenses = []
+        self.budgets = {}
         self.load_expenses()
+        self.load_budgets()
     
     def load_expenses(self):
         if os.path.exists(self.filename):
@@ -53,17 +57,56 @@ class ExpenseTracker:
         with open(self.filename, "w") as file:
             data = [exp.to_dict() for exp in self.expenses]
             json.dump(data, file, indent=4)
+
+    def load_budgets(self):
+        if os.path.exists(self.budget_filename):
+            try:
+                with open(self.budget_filename, "r") as file:
+                    self.budgets = json.load(file)
+            except (json.JSONDecodeError, FileNotFoundError):
+                self.budgets = {}
+        else:
+            self.budgets = {}
+    
+    def save_budgets(self):
+        with open(self.budget_filename, "w") as file:
+            json.dump(self.budgets, file, indent=4)
+    
+    def set_budget(self, category, limit):
+        self.budgets[category] = limit
+        self.save_budgets()
+    
+    def check_budget(self, category):
+        """Returns (spent, limit, over_budget: bool) for a category, or None if no budget set."""
+        if category not in self.budgets:
+            return None
+        spent = self.spend_by_category().get(category, 0.0)
+        limit = self.budgets[category]
+        return (spent, limit, spent > limit)
     
     def add_expense(self, amount, category, note):
         expense = Expense(amount, category, note)
         self.expenses.append(expense)
         self.save_expenses()
+
+    def edit_expense(self, index, amount=None, category=None, note=None):
+        """Update fields on an existing expense. Pass None to leave a field unchanged."""
+        if 1 <= index <= len(self.expenses):
+            exp = self.expenses[index - 1]
+            if amount is not None:
+                exp.amount = amount
+            if category is not None:
+                exp.category = category
+            if note is not None:
+                exp.note = note
+            self.save_expenses()
+            return exp
+        return None
     
     def view_expenses(self):
         if not self.expenses:
             print("No expenses yet.\n")
             return
-        
         print("\n--- All Expenses ---")
         for i, exp in enumerate(self.expenses, start=1):
             print(f"{i}. {exp}")
@@ -100,7 +143,6 @@ class ExpenseTracker:
         return [exp for exp in self.expenses if start_date <= exp.date <= end_date]
 
     def generate_report(self):
-        """Prints a full summary report."""
         if not self.expenses:
             print("No expenses to report.\n")
             return
@@ -111,10 +153,35 @@ class ExpenseTracker:
         print("\nSpend by category:")
         for category, amount in sorted(self.spend_by_category().items(), key=lambda x: -x[1]):
             print(f"  {category}: ₹{amount:.2f}")
+            budget_check = self.check_budget(category)
+            if budget_check:
+                spent, limit, over = budget_check
+                if over:
+                    print(f"    ⚠ Over budget! Limit was ₹{limit:.2f}")
+                else:
+                    print(f"    (Budget: ₹{limit:.2f}, remaining: ₹{limit - spent:.2f})")
         
         top = self.highest_expense()
         print(f"\nHighest single expense: {top}")
         print()
+
+    def show_chart(self):
+        """Display a bar chart of spending by category."""
+        data = self.spend_by_category()
+        if not data:
+            print("No data to chart.\n")
+            return
+        
+        categories = list(data.keys())
+        amounts = list(data.values())
+        
+        plt.figure(figsize=(8, 5))
+        plt.bar(categories, amounts, color="skyblue")
+        plt.title("Spending by Category")
+        plt.xlabel("Category")
+        plt.ylabel("Amount (₹)")
+        plt.tight_layout()
+        plt.show()
 
 
 def get_valid_amount():
@@ -135,7 +202,10 @@ def main():
         print("3. Delete Expense")
         print("4. Generate Report")
         print("5. Filter by Date Range")
-        print("6. Exit")
+        print("6. Edit Expense")
+        print("7. Set Budget")
+        print("8. Show Chart")
+        print("9. Exit")
         
         choice = input("Enter your choice: ")
         
@@ -144,6 +214,12 @@ def main():
             category = input("Enter category (Food/Travel/Bills/etc): ")
             note = input("Enter note (optional): ")
             tracker.add_expense(amount, category, note)
+            
+            budget_check = tracker.check_budget(category)
+            if budget_check:
+                spent, limit, over = budget_check
+                if over:
+                    print(f"⚠ Warning: You're over budget for {category}! (₹{spent:.2f} / ₹{limit:.2f})")
             print("Expense added!\n")
         
         elif choice == "2":
@@ -173,12 +249,44 @@ def main():
                 print()
             else:
                 print("No expenses found in that range.\n")
-                
+        
         elif choice == "6":
+            tracker.view_expenses()
+            if tracker.expenses:
+                try:
+                    index = int(input("Enter the number of the expense to edit: "))
+                    print("Leave blank to keep current value.")
+                    new_amount_input = input("New amount: ")
+                    new_category = input("New category: ")
+                    new_note = input("New note: ")
+                    
+                    new_amount = float(new_amount_input) if new_amount_input.strip() else None
+                    new_category = new_category if new_category.strip() else None
+                    new_note = new_note if new_note.strip() else None
+                    
+                    updated = tracker.edit_expense(index, new_amount, new_category, new_note)
+                    print(f"Updated: {updated}\n" if updated else "Invalid expense number.\n")
+                except ValueError:
+                    print("Invalid input.\n")
+        
+        elif choice == "7":
+            category = input("Category to set budget for: ")
+            try:
+                limit = float(input("Monthly budget limit: "))
+                tracker.set_budget(category, limit)
+                print(f"Budget set: {category} → ₹{limit:.2f}\n")
+            except ValueError:
+                print("Invalid amount.\n")
+        
+        elif choice == "8":
+            tracker.show_chart()
+        
+        elif choice == "9":
             print("Goodbye!")
             break
-                
+        
         else:
             print("Invalid choice, try again.\n")
+
 
 main()
