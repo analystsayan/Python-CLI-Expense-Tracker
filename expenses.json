@@ -156,12 +156,6 @@
         "date": "2026-09-07"
     },
     {
-        "amount": 250.0,
-        "category": "education",
-        "note": "notebooks and stationery",
-        "date": "2026-09-07"
-    },
-    {
         "amount": 750.0,
         "category": "food",
         "note": "dinner with friends",
@@ -298,5 +292,11 @@
         "category": "travel",
         "note": "airport taxi to home",
         "date": "2026-09-13"
+    },
+    {
+        "amount": 756.0,
+        "category": "Food",
+        "note": "burger",
+        "date": "2026-09-06"
     }
 ]
